@@ -1,12 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://djs0cgy751adr"]
+[gd_scene load_steps=23 format=3 uid="uid://dgg1cue6kjmkb"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_54be6"]
 [ext_resource type="Texture2D" uid="uid://d0msy624qqk6a" path="res://Assets/player.png" id="2_0kv10"]
-[ext_resource type="Script" path="res://Player/StateMachine.gd" id="3_ufdff"]
-[ext_resource type="Script" path="res://Player/Idle.gd" id="4_6es2c"]
-[ext_resource type="Script" path="res://Player/Moving.gd" id="5_5rpws"]
-[ext_resource type="Script" path="res://Player/Jumping.gd" id="6_us221"]
-[ext_resource type="Script" path="res://Player/Falling.gd" id="7_idbto"]
+[ext_resource type="Script" path="res://StateMachine/Idle.gd" id="4_oqd5e"]
+[ext_resource type="Script" path="res://StateMachine/Moving.gd" id="5_j0vq2"]
+[ext_resource type="Script" path="res://StateMachine/Jumping.gd" id="6_6ywdi"]
+[ext_resource type="Script" path="res://StateMachine/Moving_and_Jumping.gd" id="6_cm2id"]
+[ext_resource type="Script" path="res://StateMachine/Falling.gd" id="7_lm672"]
+[ext_resource type="Script" path="res://StateMachine/Coyote.gd" id="7_t41h7"]
+[ext_resource type="Script" path="res://StateMachine/Attacking.gd" id="8_jwsu7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3ybs"]
 atlas = ExtResource("2_0kv10")
@@ -47,10 +49,6 @@ region = Rect2(160, 0, 32, 70)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2er8"]
 atlas = ExtResource("2_0kv10")
 region = Rect2(192, 0, 32, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tel72"]
-atlas = ExtResource("2_0kv10")
-region = Rect2(224, 0, 32, 70)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mmaeg"]
 animations = [{
@@ -99,9 +97,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p2er8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tel72")
 }],
 "loop": true,
 "name": &"Walk",
@@ -109,31 +104,96 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3cag"]
-size = Vector2(18, 47)
+size = Vector2(18, 51.5)
+
+[sub_resource type="GDScript" id="GDScript_r1i6s"]
+script/source = "extends Node
+
+@onready var state = null
+@onready var previous_state = null
+@onready var state_name = \"\"
+
+func _ready():
+	if get_child_count():
+		set_state(get_children()[0].name)
+
+func _physics_process(delta):
+	if state and state.has_method(\"physics_process\"):
+		state.physics_process(delta)
+
+func _process(delta):
+	if state and state.has_method(\"process\"):
+		state.process(delta)
+
+func _unhandled_input(event):
+	if state and state.has_method(\"unhandled_input\"):
+		state.unhandled_input(event)
+
+func set_state(s):
+	state_name = s
+	var new_state = get_node(NodePath(s))
+	if new_state != null:
+		if state != null:
+			if state.has_method(\"end\"):
+				state.end()
+			previous_state = state
+		state = new_state
+		if state.has_method(\"start\"):
+			state.start()
+	else:
+		state = null
+"
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_54be6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mmaeg")
-animation = &"Idle"
-autoplay = "Idle"
+animation = &"Walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 6)
+position = Vector2(-1, 8.25)
 shape = SubResource("RectangleShape2D_d3cag")
 
+[node name="Attack" type="RayCast2D" parent="."]
+position = Vector2(0, -2)
+target_position = Vector2(70, 0)
+
+[node name="Attack_Low" type="RayCast2D" parent="."]
+position = Vector2(0, 30)
+target_position = Vector2(50, 0)
+
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_ufdff")
+script = SubResource("GDScript_r1i6s")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_6es2c")
+script = ExtResource("4_oqd5e")
 
 [node name="Moving" type="Node" parent="StateMachine"]
-script = ExtResource("5_5rpws")
+script = ExtResource("5_j0vq2")
 
 [node name="Jumping" type="Node" parent="StateMachine"]
-script = ExtResource("6_us221")
+script = ExtResource("6_6ywdi")
+
+[node name="Moving_and_Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("6_cm2id")
 
 [node name="Falling" type="Node" parent="StateMachine"]
-script = ExtResource("7_idbto")
+script = ExtResource("7_lm672")
+
+[node name="Coyote" type="Node" parent="StateMachine"]
+script = ExtResource("7_t41h7")
+
+[node name="Timer" type="Timer" parent="StateMachine/Coyote"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("8_jwsu7")
+
+[node name="Timer" type="Timer" parent="StateMachine/Attacking"]
+wait_time = 0.12
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="StateMachine/Coyote/Timer" to="StateMachine/Coyote" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attacking/Timer" to="StateMachine/Attacking" method="_on_timer_timeout"]
