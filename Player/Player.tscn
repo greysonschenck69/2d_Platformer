@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dgg1cue6kjmkb"]
+[gd_scene load_steps=27 format=3 uid="uid://dgg1cue6kjmkb"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_54be6"]
 [ext_resource type="Texture2D" uid="uid://d0msy624qqk6a" path="res://Assets/player.png" id="2_0kv10"]
@@ -9,6 +9,22 @@
 [ext_resource type="Script" path="res://StateMachine/Falling.gd" id="7_lm672"]
 [ext_resource type="Script" path="res://StateMachine/Coyote.gd" id="7_t41h7"]
 [ext_resource type="Script" path="res://StateMachine/Attacking.gd" id="8_jwsu7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16aib"]
+atlas = ExtResource("2_0kv10")
+region = Rect2(192, 140, 32, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqbtn"]
+atlas = ExtResource("2_0kv10")
+region = Rect2(224, 140, 32, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v62a"]
+atlas = ExtResource("2_0kv10")
+region = Rect2(256, 140, 32, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jorl6"]
+atlas = ExtResource("2_0kv10")
+region = Rect2(288, 140, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3ybs"]
 atlas = ExtResource("2_0kv10")
@@ -54,10 +70,27 @@ region = Rect2(192, 0, 32, 70)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_16aib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqbtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v62a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jorl6")
+}],
+"loop": false,
+"name": &"Attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_w3ybs")
 }],
 "loop": false,
-"name": &"Fall",
+"name": &"Falling",
 "speed": 5.0
 }, {
 "frames": [{
@@ -76,7 +109,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_oso4a")
 }],
 "loop": false,
-"name": &"Jump",
+"name": &"Jumping",
 "speed": 5.0
 }, {
 "frames": [{
@@ -99,7 +132,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_p2er8")
 }],
 "loop": true,
-"name": &"Walk",
+"name": &"Moving",
 "speed": 5.0
 }]
 
@@ -149,7 +182,7 @@ script = ExtResource("1_54be6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mmaeg")
-animation = &"Walk"
+animation = &"Attacking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 8.25)
@@ -195,5 +228,5 @@ script = ExtResource("8_jwsu7")
 wait_time = 0.12
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
-[connection signal="timeout" from="StateMachine/Coyote/Timer" to="StateMachine/Coyote" method="_on_timer_timeout"]
-[connection signal="timeout" from="StateMachine/Attacking/Timer" to="StateMachine/Attacking" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Coyote/Timer" to="StateMachine/Coyote" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attacking/Timer" to="StateMachine/Attacking" method="_on_Timer_timeout"]

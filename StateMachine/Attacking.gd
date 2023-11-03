@@ -17,6 +17,6 @@ func physics_process(_delta):
 	pass
 
 
-func _on_timer_timeout():
+func _on_Timer_timeout():
 	if SM.state_name == "Attacking":
 		player.attack()

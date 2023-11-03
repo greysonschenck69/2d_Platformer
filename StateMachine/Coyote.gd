@@ -23,5 +23,5 @@ func physics_process(_delta):
 		player.velocity.x = 0
 
 
-func _on_timer_timeout():
+func _on_Timer_timeout():
 	SM.set_state("Falling")
