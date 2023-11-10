@@ -11,7 +11,7 @@ var initial_position = Vector2.ZERO
 var mode = ""
 
 
-var points = []
+
 const margin = 1.5
 
 func _ready():

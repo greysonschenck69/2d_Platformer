@@ -72,3 +72,8 @@ func die():
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite2D.animation == "Attacking":
 		SM.set_state("Idle")
+
+
+func _on_coin_collector_body_entered(body):
+	if body.name == "Coins":
+		body.get_coin(global_position)

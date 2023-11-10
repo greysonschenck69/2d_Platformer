@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dgg1cue6kjmkb"]
+[gd_scene load_steps=28 format=3 uid="uid://dgg1cue6kjmkb"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_54be6"]
 [ext_resource type="Texture2D" uid="uid://d0msy624qqk6a" path="res://Assets/player.png" id="2_0kv10"]
@@ -177,12 +177,16 @@ func set_state(s):
 		state = null
 "
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mboxn"]
+radius = 13.0
+height = 62.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_54be6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mmaeg")
-animation = &"Attacking"
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 8.25)
@@ -227,6 +231,15 @@ script = ExtResource("8_jwsu7")
 [node name="Timer" type="Timer" parent="StateMachine/Attacking"]
 wait_time = 0.12
 
+[node name="Coin_Collector" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin_Collector"]
+position = Vector2(-1, 8)
+shape = SubResource("CapsuleShape2D_mboxn")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="StateMachine/Coyote/Timer" to="StateMachine/Coyote" method="_on_Timer_timeout"]
 [connection signal="timeout" from="StateMachine/Attacking/Timer" to="StateMachine/Attacking" method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Coin_Collector" to="." method="_on_coin_collector_body_entered"]
