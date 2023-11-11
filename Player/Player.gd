@@ -64,6 +64,11 @@ func attack():
 		print(target)
 		if target.has_method("damage"):
 			target.damage()
+	if $Attack_low.is_colliding():
+		var target = $Attack_low.get_collider()
+		print(target)
+		if target.has_method("damage"):
+			target.damage()
 
 func die():
 	queue_free()

@@ -385,7 +385,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smkfn"]
-size = Vector2(142, 238)
+size = Vector2(142, 210)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stwdr"]
 size = Vector2(144, 28.5)
@@ -399,7 +399,7 @@ sprite_frames = SubResource("SpriteFrames_052oe")
 animation = &"Moving"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -31)
+position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_smkfn")
 
 [node name="Attack" type="RayCast2D" parent="."]
