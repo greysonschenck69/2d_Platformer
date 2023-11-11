@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_54be6"]
 [ext_resource type="Texture2D" uid="uid://d0msy624qqk6a" path="res://Assets/player.png" id="2_0kv10"]
+[ext_resource type="Script" path="res://StateMachine/StateMachine.gd" id="3_flgkj"]
 [ext_resource type="Script" path="res://StateMachine/Idle.gd" id="4_oqd5e"]
 [ext_resource type="Script" path="res://StateMachine/Moving.gd" id="5_j0vq2"]
 [ext_resource type="Script" path="res://StateMachine/Jumping.gd" id="6_6ywdi"]
@@ -139,44 +140,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3cag"]
 size = Vector2(18, 51.5)
 
-[sub_resource type="GDScript" id="GDScript_r1i6s"]
-script/source = "extends Node
-
-@onready var state = null
-@onready var previous_state = null
-@onready var state_name = \"\"
-
-func _ready():
-	if get_child_count():
-		set_state(get_children()[0].name)
-
-func _physics_process(delta):
-	if state and state.has_method(\"physics_process\"):
-		state.physics_process(delta)
-
-func _process(delta):
-	if state and state.has_method(\"process\"):
-		state.process(delta)
-
-func _unhandled_input(event):
-	if state and state.has_method(\"unhandled_input\"):
-		state.unhandled_input(event)
-
-func set_state(s):
-	state_name = s
-	var new_state = get_node(NodePath(s))
-	if new_state != null:
-		if state != null:
-			if state.has_method(\"end\"):
-				state.end()
-			previous_state = state
-		state = new_state
-		if state.has_method(\"start\"):
-			state.start()
-	else:
-		state = null
-"
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mboxn"]
 radius = 13.0
 height = 62.0
@@ -201,7 +164,7 @@ position = Vector2(0, 30)
 target_position = Vector2(50, 0)
 
 [node name="StateMachine" type="Node" parent="."]
-script = SubResource("GDScript_r1i6s")
+script = ExtResource("3_flgkj")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_oqd5e")
