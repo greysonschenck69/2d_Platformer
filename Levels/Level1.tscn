@@ -746,7 +746,7 @@ texture_region_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_mdmmk")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6jw0"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgk4s"]
 texture = ExtResource("3_4y27u")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
@@ -754,10 +754,11 @@ texture_region_size = Vector2i(128, 128)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
 
-[sub_resource type="TileSet" id="TileSet_g1f3s"]
+[sub_resource type="TileSet" id="TileSet_p1yc7"]
 tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_p6jw0")
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 8
+sources/0 = SubResource("TileSetAtlasSource_vgk4s")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lasyh"]
 texture = ExtResource("1_o4655")
@@ -1762,11 +1763,9 @@ scale = Vector2(5.895, 1.50125)
 texture = ExtResource("2_ac44f")
 
 [node name="Coins" type="TileMap" parent="."]
-light_mask = 8
-visibility_layer = 8
-tile_set = SubResource("TileSet_g1f3s")
+tile_set = SubResource("TileSet_p1yc7")
 format = 2
-layer_0/tile_data = PackedInt32Array(1376261, 0, 0, 1245191, 0, 0, 1048584, 0, 0, 786444, 0, 0, 1310740, 0, 0, 983061, 0, 0, 524311, 0, 0, 262174, 0, 0, 1310751, 0, 0, 1048609, 0, 0, 852007, 0, 0, 393259, 0, 0, 1179692, 0, 0, 917554, 0, 0, 655409, 0, 0, 1179703, 0, 0, 786487, 0, 0, 458807, 0, 0, 65587, 0, 0, 524349, 0, 0)
+layer_0/tile_data = PackedInt32Array(1441797, 0, 0, 1114118, 0, 0, 720904, 0, 0, 983051, 0, 0)
 script = ExtResource("4_4bo5f")
 
 [node name="Spawn" type="Node2D" parent="."]
