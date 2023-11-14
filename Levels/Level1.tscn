@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bibmoldvyuefj"]
+[gd_scene load_steps=20 format=3 uid="uid://bibmoldvyuefj"]
 
 [ext_resource type="Texture2D" uid="uid://mlmh60tfy5rt" path="res://Assets/Tiles.png" id="1_o4655"]
 [ext_resource type="Texture2D" uid="uid://cufiomuslie2o" path="res://Assets/wff-2023-080-157.webp" id="2_ac44f"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://xv837f6fq17c" path="res://Enemies/Golem.tscn" id="7_gutaf"]
 [ext_resource type="PackedScene" uid="uid://bh8vxmqlvcqdw" path="res://Enemies/Bat.tscn" id="8_xsv05"]
 [ext_resource type="PackedScene" uid="uid://dw1gpsdguswxp" path="res://Enemies/Wolf.tscn" id="9_l2cm3"]
+[ext_resource type="AudioStream" uid="uid://bdbhd5f0k3qei" path="res://Assets/Emerel-Gray-Infraction-respavvn-Inferno-pr.mp3" id="12_smter"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mdmmk"]
 texture = ExtResource("1_o4655")
@@ -1798,5 +1799,9 @@ drag_vertical_offset = -0.8
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_li565")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_smter")
+autoplay = true
 
 [connection signal="body_entered" from="Exit_to_2" to="Exit_to_2" method="_on_Exit_body_entered"]
