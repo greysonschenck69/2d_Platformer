@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bibmoldvyuefj"]
+[gd_scene load_steps=26 format=3 uid="uid://bibmoldvyuefj"]
 
 [ext_resource type="Texture2D" uid="uid://mlmh60tfy5rt" path="res://Assets/Tiles.png" id="1_o4655"]
 [ext_resource type="Texture2D" uid="uid://cufiomuslie2o" path="res://Assets/wff-2023-080-157.webp" id="2_ac44f"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bh8vxmqlvcqdw" path="res://Enemies/Bat.tscn" id="8_xsv05"]
 [ext_resource type="PackedScene" uid="uid://dw1gpsdguswxp" path="res://Enemies/Wolf.tscn" id="9_l2cm3"]
 [ext_resource type="AudioStream" uid="uid://bdbhd5f0k3qei" path="res://Assets/Emerel-Gray-Infraction-respavvn-Inferno-pr.mp3" id="12_smter"]
+[ext_resource type="PackedScene" uid="uid://cgttqchb7f0lc" path="res://UI/UI.tscn" id="15_rhq7t"]
+[ext_resource type="PackedScene" uid="uid://c41vved0pm8q5" path="res://UI/Pause_Menu.tscn" id="16_vbkux"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mdmmk"]
 texture = ExtResource("1_o4655")
@@ -1808,6 +1810,11 @@ layer_0/tile_data = PackedInt32Array(2949121, 65536, 0, 2949122, 65536, 0, 29491
 tile_set = SubResource("TileSet_0g3xc")
 format = 2
 layer_0/tile_data = PackedInt32Array(8782085, 1179648, 1, 8388910, 1179648, 1, 9240876, 1179648, 2, 9568556, 1179648, 2, 10092844, 1179648, 2, 10682671, 1179648, 2, 10289452, 1179648, 2, 10879278, 1179648, 2, 11469102, 1179648, 2, 9306373, 1179648, 2, 8716549, 1179648, 2, 9109765, 1179648, 2, 9437446, 1179648, 2, 9830662, 1179648, 2, 10158343, 1179648, 2, 10486023, 1179648, 2, 11272455, 1179648, 2, 10617096, 1179648, 2, 10354952, 1179648, 2, 10748168, 1179648, 2, 11206921, 1179648, 2, 11469011, 720896, 1, 10879165, 720896, 1, 8323239, 720896, 1, 6291616, 720896, 1, 4980901, 720896, 1, 3539215, 720896, 1, 5308741, 720896, 1, 11338115, 1245184, 0, 11272389, 1245184, 0, 11206811, 1245184, 0, 8257638, 1245184, 0)
+
+[node name="UI" parent="." instance=ExtResource("15_rhq7t")]
+
+[node name="Pause_Menu" parent="UI" instance=ExtResource("16_vbkux")]
+visible = false
 
 [node name="Camera" parent="." instance=ExtResource("7_dyn0f")]
 position = Vector2(16, 32)

@@ -22,3 +22,5 @@ func get_coin(p):
 	if which_coin != Vector2.ZERO:
 		call_deferred("set_cell", 0, which_coin, -1)
 		Global.add_coin()
+
+
