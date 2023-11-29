@@ -17,6 +17,9 @@ Added a Shader to Main Menu
 https://apod.nasa.gov/apod/ap231102.html
 https://www.nasa.gov/image-detail/wff-2023-080-157/
 https://inaudio.org/track/inferno-brazilian-phonk/
+The player sprite adapted from MV Platformer Male by MoikMellah. CC0 Licensed.
+
+The terrain spritemap is from the Abstract Platformer package available at Kenney.nl.
 ## Future Development
 More enemies
 Better terrain
